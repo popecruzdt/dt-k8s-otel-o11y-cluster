@@ -46,8 +46,25 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 Duration: 15
 
 ### Prerequisites
-### Define user variables
-In your GCP CloudShell Terminal:
+
+
+#### Clone the repo to your home directory
+Command:
+```sh
+git clone https://github.com/popecruzdt/dt-k8s-otel-o11y-cluster.git
+```
+Sample output:
+> Cloning into 'dt-k8s-otel-o11y-cluster'...\
+> ...\
+> Receiving objects: 100% (12/12), 10.61 KiB | 1.77 MiB/s, done.
+
+#### Move into repo base directory
+Command:
+```sh
+cd dt-k8s-otel-o11y-cluster
+```
+
+#### Define user variables
 ```
 ZONE=us-central1-c
 NAME=<INITIALS>-k8s-otel-o11y
