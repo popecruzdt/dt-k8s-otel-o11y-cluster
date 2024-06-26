@@ -241,7 +241,11 @@ Command:
 ```sh
 ./istio/deploy-istio-astronomy-shop.sh
 ```
-
+Sample output:
+> Waiting for external IP\
+> Found external IP: 35.223.120.37\
+> gateway.networking.istio.io/astronomy-shop-gateway created\
+> virtualservice.networking.istio.io/astronomy-shop-httproute created
 
 <!-- ------------------------ -->
 ## Demo The New Functionality
