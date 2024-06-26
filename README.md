@@ -103,7 +103,7 @@ helm version
 ```
 Sample output:
 > version.BuildInfo{Version:"v3.9.3",\
-> GitCommit:"414ff28d4029ae8c8b05d62aa06c7fe3dee2bc58",\ 
+> GitCommit:"414ff28d4029ae8c8b05d62aa06c7fe3dee2bc58",\
 > GitTreeState:"clean", GoVersion:"go1.17.13"}
 
 ### Istio Service Mesh
@@ -132,7 +132,7 @@ export PATH=$PWD/bin:$PATH
 Command:
 ```
 cd ..
-istioctl install -f istio/istio-operator-min.yaml --skip-confirmation
+istioctl install -f istio/istio-operator.yaml --skip-confirmation
 ```
 Sample output:
 > ✔ Istio core installed\
@@ -204,6 +204,44 @@ Sample output:
 > NAMESPACE: astronomy-shop\
 > STATUS: deployed\
 > REVISION: 1
+
+#### Validate pods are running
+Command:
+```sh
+NAME                                                    READY   STATUS    RESTARTS      AGE
+astronomy-shop-accountingservice-7b76cc8bb4-snwh8       2/2     Running   0             118s
+astronomy-shop-adservice-f467c4d7b-v5k2h                2/2     Running   0             117s
+astronomy-shop-cartservice-55b7c7979b-4zl4q             2/2     Running   0             116s
+astronomy-shop-checkoutservice-b6ccc7778-h7vsj          2/2     Running   0             117s
+astronomy-shop-currencyservice-68fdc6f644-p5dc2         2/2     Running   0             117s
+astronomy-shop-emailservice-6448cfb47c-59ws4            2/2     Running   0             116s
+astronomy-shop-flagd-9d96446f7-tc67j                    2/2     Running   0             118s
+astronomy-shop-frauddetectionservice-69d59c47fc-wcm7k   2/2     Running   0             118s
+astronomy-shop-frontend-b9fd4569-b2fc9                  2/2     Running   0             118s
+astronomy-shop-frontendproxy-7db64d4858-gpl7t           2/2     Running   0             118s
+astronomy-shop-imageprovider-686f9b8fcd-lrqfk           2/2     Running   0             117s
+astronomy-shop-kafka-ccc558cf7-gvvnp                    2/2     Running   0             118s
+astronomy-shop-loadgenerator-799b79c864-9865g           2/2     Running   0             116s
+astronomy-shop-otelcol-7cb6b8487-z6k2f                  2/2     Running   0             118s
+astronomy-shop-paymentservice-5b4998c7cc-bffz5          2/2     Running   0             116s
+astronomy-shop-productcatalogservice-5884fcbcb7-6sncb   2/2     Running   0             116s
+astronomy-shop-quoteservice-67bc5fd5-98gnp              2/2     Running   0             116s
+astronomy-shop-recommendationservice-5dc597f5d4-ndp56   2/2     Running   0             117s
+astronomy-shop-redis-6686b85c9d-zwvtl                   2/2     Running   0             116s
+astronomy-shop-shippingservice-85d587457c-77brp         2/2     Running   0             116s
+```
+
+#### Deploy the Istio gateway for `astronomy-shop`
+Command:
+```sh
+chmod 744 istio/deploy-istio-astronomy-shop.sh
+```
+
+Command:
+```sh
+./istio/deploy-istio-astronomy-shop.sh
+```
+
 
 <!-- ------------------------ -->
 ## Demo The New Functionality
