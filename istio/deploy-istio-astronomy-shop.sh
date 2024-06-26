@@ -9,3 +9,6 @@ echo 'Found external IP: '$IP
 
 ### Update the ip adress for the ingress
 sed -i "s,IP_TO_REPLACE,$IP," istio/istio-astronomy-shop.yaml
+
+### Deploy the Kubernetes manifest
+kubectl apply -f istio/istio-astronomy-shop.yaml
