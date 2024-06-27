@@ -1,52 +1,44 @@
-id: dt-k8s-otel-istio-lab
-summary: dynatrace istio service mesh observability for kubernetes using opentelemetry
+id: dt-k8s-otel-o11y-cluster
+summary: astronomy-shop demo application on kubernetes setup
 author: Tony Pope-Cruz
-last update: 6/25/2024
 
-# Kubernetes Istio Service Mesh Observability with OpenTelemetry & Dynatrace
+# OpenTelemetry Demo astronomy-shop on Kubernetes Setup
 <!-- ------------------------ -->
 ## Overview 
-Duration: 10
+Total Duration: 10
 
 ### What You’ll Learn Today
-Provide a executive summary of the topic we're going to cover 
-- what is it?
-- why is it important?
-- who is the target audience/ persona
-- how does this benefit the audience/ persona?
-- What problem are we solving?
-- What is the value of this 
-- what will the audidence actually learn?
+In this lab we'll create a Kubernetes cluster in GCP (GKE) and deploy the OpenTelemetry Demo application, astronomy-shop.  This is a foundation/prerequisite for several other labs utilizing this infrastructure deployment.
 
-![ENVISION THE FUTURE!](img/concepts.png)
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Lab tasks:
+1. Create a Kubernetes cluster on Google GKE
+2. Deploy OpenTelemetry's demo application, astronomy-shop
+3. Deploy Istio Service Mesh
 
 <!-- -------------------------->
 ## Technical Specification 
-Duration: 5
+Duration: 2
 
-### Detail the technical requirements 
-- Technologies in use
-  - Versioning if relevant  
-- Relevant architecture/ network / traffic flow diagram
-- Prerequisites for setup
-  - VM specification/ container/  host sizing, 
-  - cli binaries / git repos/ other software needed
+#### Technologies Used
+- [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine)
+  - tested on GKE v1.29.4-gke.1043002
+- [OpenTelemetry Demo astronomy-shop](https://opentelemetry.io/docs/demo/)
+  - tested on release 1.10.0
+- [Istio](https://istio.io/latest/docs/)
+  - tested on v1.22.1
 
+#### Reference Architecture
+TODO
 
-![I'm a relevant image!](img/lab-environment.png)
-
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
+#### Prerequisites
+- Google Cloud Account
+- Google Cloud Project
+- Google Cloud Access to Create and Manage GKE Clusters
+- Google CloudShell Access
 
 <!-- -------------------------->
 ## Setup
-Duration: 15
-
-### Prerequisites
-
+Duration: 8
 
 #### Clone the repo to your home directory
 Command:
@@ -249,40 +241,18 @@ Sample output:
 
 <!-- ------------------------ -->
 ## Demo The New Functionality
-Duration: 15
-
-### Make the sausage
-- execute the demo on how to solve the problem statement you posed
-- This might just be more steps (?)
-- This might just be a power point presentation
-
-![I'm a relevant image!](img/livedemo.png)
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
+TODO
 
 <!-- -------------------------->
 ## Wrap Up
-Duration: 5
+
 ### What You Learned Today 
-Review all the points you made at the start:
-- What did the audience just learn?
-- Why is this gained knowledge important?
-- How will this knowledge now benefit the audience/ persona?
-- What problem have we solved?
-- Q&A 
+By completing this lab, you created a Kubernetes cluster on GCP (GKE) and deployed the OpenTelemetry Demo application, astronomy-shop.
+- The Kubernetes cluster can run containerized workloads
+- The astronomy-shop application offers a convenient way to demo/explore cloud native technologies
+- Istio Service Mesh provides networking, security, and observability capabilities for Kubernetes
+- You are ready to proceed with additional labs that depend on this infrastructure deployment
 
 <!-- ------------------------ -->
 ### Supplemental Material
-Duration: 1
-
-- Include all refence documentation links here
-  - Any links included in the code lab should be here
-  - Relevant links not explicitcly called out about (like code lab formatting beow)
-
-- [Markdown Formatting Refernce](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
-- [Codelab Formatting Guide](https://github.com/googlecodelabs/tools/blob/master/FORMAT-GUIDE.md)
-
-`have a great time`
-
-![kthnxbai](img/waving.gif)
+TODO
