@@ -12,7 +12,7 @@ spec:
         name: http
         protocol: HTTP
       hosts:
-        - "astronomyshop.34.68.61.75.nip.io"
+        - "astronomyshop.IP_TO_REPLACE.nip.io"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -21,7 +21,7 @@ metadata:
   namespace: astronomy-shop
 spec:
   hosts:
-    - "astronomyshop.34.68.61.75.nip.io"
+    - "astronomyshop.IP_TO_REPLACE.nip.io"
   gateways:
     - astronomy-shop-gateway
   http:
