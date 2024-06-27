@@ -35,7 +35,11 @@ TODO
 - Google Cloud Project
 - Google Cloud Access to Create and Manage GKE Clusters
 - Google CloudShell Access
-
+- [gcloud CLI](https://cloud.google.com/sdk/docs/install#linux)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [helm](https://helm.sh/docs/intro/install/)
+- [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+- [istio](https://istio.io/latest/docs/setup/getting-started/#download)
 <!-- -------------------------->
 ## Setup
 Duration: 8
@@ -57,7 +61,10 @@ cd dt-k8s-otel-o11y-cluster
 ```
 
 #### Define user variables
+*note: these can be updated with any regions you have access to*
 ```
+example: 
+
 ZONE=us-central1-c
 NAME=<INITIALS>-k8s-otel-o11y
 ```
@@ -182,7 +189,7 @@ default:
 
 Command:
 ```sh
-sed -i "s,NAME_TO_REPLACE,$NAME," astronomy-shop/default-values.yaml
+sed -i'' -e "s,NAME_TO_REPLACE,$NAME," astronomy-shop/default-values.yaml
 ```
 
 #### Install astronomy-shop
@@ -200,6 +207,8 @@ Sample output:
 #### Validate pods are running
 Command:
 ```sh
+kubectl get pod -n astronomy-shop
+
 NAME                                                    READY   STATUS    RESTARTS      AGE
 astronomy-shop-accountingservice-7b76cc8bb4-snwh8       2/2     Running   0             118s
 astronomy-shop-adservice-f467c4d7b-v5k2h                2/2     Running   0             117s
