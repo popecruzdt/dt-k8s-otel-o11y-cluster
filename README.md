@@ -35,6 +35,11 @@ TODO
 - Google Cloud Project
 - Google Cloud Access to Create and Manage GKE Clusters
 - Google CloudShell Access
+  - [gcloud CLI](https://cloud.google.com/sdk/docs/install#linux)
+  - [kubectl](https://kubernetes.io/docs/tasks/tools/)
+  - [helm](https://helm.sh/docs/intro/install/)
+  - [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+  - [istio](https://istio.io/latest/docs/setup/getting-started/#download)
 
 <!-- -------------------------->
 ## Setup
@@ -57,6 +62,7 @@ cd dt-k8s-otel-o11y-cluster
 ```
 
 #### Define user variables
+*note: these can be updated with any zones you have access to*
 ```
 ZONE=us-central1-c
 NAME=<INITIALS>-k8s-otel-o11y
@@ -102,17 +108,18 @@ Sample output:
 https://istio.io/latest/docs/setup/getting-started/#download
 
 #### Install Istio client (1.22+)
+*note: specifying version `1.22.1` to avoid future issues with this lab*
 Command:
 ```
-curl -L https://istio.io/downloadIstio | sh -
+curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.22.1 sh -
 ```
 
 #### Move to the Istio package directory
 Command:
 ```
-cd istio-1.XX.Y
+cd istio-1.22.1
 ```
-Where `XX.Y` is the version that was installed\
+Where `1.22.1` is the version that was installed\
 
 #### Add the `istioctl` client to path
 Command:
@@ -200,6 +207,10 @@ Sample output:
 #### Validate pods are running
 Command:
 ```sh
+kubectl get pods -n astronomy-shop
+```
+Sample output:
+
 NAME                                                    READY   STATUS    RESTARTS      AGE
 astronomy-shop-accountingservice-7b76cc8bb4-snwh8       2/2     Running   0             118s
 astronomy-shop-adservice-f467c4d7b-v5k2h                2/2     Running   0             117s
@@ -221,7 +232,6 @@ astronomy-shop-quoteservice-67bc5fd5-98gnp              2/2     Running   0     
 astronomy-shop-recommendationservice-5dc597f5d4-ndp56   2/2     Running   0             117s
 astronomy-shop-redis-6686b85c9d-zwvtl                   2/2     Running   0             116s
 astronomy-shop-shippingservice-85d587457c-77brp         2/2     Running   0             116s
-```
 
 #### Deploy the Istio gateway for `astronomy-shop`
 Command:
