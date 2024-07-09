@@ -28,7 +28,7 @@ Duration: 2
   - tested on v1.22.1
 
 #### Reference Architecture
-TODO
+[Demo Architecture](https://opentelemetry.io/docs/demo/architecture/)
 
 #### Prerequisites
 - Google Cloud Account
