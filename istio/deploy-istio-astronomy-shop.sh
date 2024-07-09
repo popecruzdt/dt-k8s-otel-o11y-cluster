@@ -12,3 +12,6 @@ sed -i "s,IP_TO_REPLACE,$IP," istio/istio-astronomy-shop.yaml
 
 ### Deploy the Kubernetes manifest with kubectl
 kubectl apply -f istio/istio-astronomy-shop.yaml
+
+### Access astronomy-shop via gateway
+echo 'Access astronomy-shop at http://astronomyshop.'$IP'.nip.io/'

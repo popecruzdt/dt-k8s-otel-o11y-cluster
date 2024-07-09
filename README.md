@@ -62,7 +62,8 @@ cd dt-k8s-otel-o11y-cluster
 ```
 
 #### Define user variables
-*note: these can be updated with any zones you have access to*
+*note: these can be updated with any zones you have access to*\
+https://cloud.google.com/compute/docs/regions-zones
 ```
 ZONE=us-central1-c
 NAME=<INITIALS>-k8s-otel-o11y
@@ -248,7 +249,8 @@ Sample output:
 > Waiting for external IP\
 > Found external IP: 35.223.120.37\
 > gateway.networking.istio.io/astronomy-shop-gateway created\
-> virtualservice.networking.istio.io/astronomy-shop-httproute created
+> virtualservice.networking.istio.io/astronomy-shop-httproute created\
+> Access astronomy-shop at http://astronomyshop.35.223.120.37.nip.io/'
 
 <!-- ------------------------ -->
 ## Demo The New Functionality
