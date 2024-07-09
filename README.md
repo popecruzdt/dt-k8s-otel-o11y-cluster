@@ -197,7 +197,7 @@ sed -i "s,NAME_TO_REPLACE,$NAME," astronomy-shop/default-values.yaml
 
 #### Install astronomy-shop
 Command:
-```
+```sh
 helm install astronomy-shop open-telemetry/opentelemetry-demo --values astronomy-shop/default-values.yaml --namespace astronomy-shop --version "0.31.0"
 ```
 Sample output:
