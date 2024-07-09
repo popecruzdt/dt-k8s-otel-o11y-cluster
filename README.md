@@ -26,6 +26,8 @@ Duration: 2
   - tested on release 1.10.0
 - [Istio](https://istio.io/latest/docs/)
   - tested on v1.22.1
+- [Helm](https://helm.sh/)
+  - tested on v0.31.0
 
 #### Reference Architecture
 [Demo Architecture](https://opentelemetry.io/docs/demo/architecture/)
@@ -196,7 +198,7 @@ sed -i "s,NAME_TO_REPLACE,$NAME," astronomy-shop/default-values.yaml
 #### Install astronomy-shop
 Command:
 ```
-helm install astronomy-shop open-telemetry/opentelemetry-demo --values astronomy-shop/default-values.yaml --namespace astronomy-shop
+helm install astronomy-shop open-telemetry/opentelemetry-demo --values astronomy-shop/default-values.yaml --namespace astronomy-shop --version "0.31.0"
 ```
 Sample output:
 > NAME: astronomy-shop\
