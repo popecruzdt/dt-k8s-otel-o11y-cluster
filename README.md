@@ -23,11 +23,11 @@ Duration: 2
 - [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine)
   - tested on GKE v1.29.4-gke.1043002
 - [OpenTelemetry Demo astronomy-shop](https://opentelemetry.io/docs/demo/)
-  - tested on release 1.10.0
+  - tested on release 1.10.0, helm release 0.31.0
 - [Istio](https://istio.io/latest/docs/)
   - tested on v1.22.1
 - [Helm](https://helm.sh/)
-  - tested on v0.31.0
+  - tested on v3.9.3
 
 #### Reference Architecture
 [Demo Architecture](https://opentelemetry.io/docs/demo/architecture/)
@@ -36,6 +36,7 @@ Duration: 2
 - Google Cloud Account
 - Google Cloud Project
 - Google Cloud Access to Create and Manage GKE Clusters
+- Google Cloud Access to Create and Manage GCE VPC Networks
 - Google CloudShell Access
   - [gcloud CLI](https://cloud.google.com/sdk/docs/install#linux)
   - [kubectl](https://kubernetes.io/docs/tasks/tools/)
@@ -64,22 +65,36 @@ cd dt-k8s-otel-o11y-cluster
 ```
 
 #### Define user variables
-*note: these can be updated with any zones you have access to*\
+*note: these can be updated with any regions you have access to*\
 https://cloud.google.com/compute/docs/regions-zones
 ```
-ZONE=us-central1-c
+REGION=us-central1
+```
+```
 NAME=<INITIALS>-k8s-otel-o11y
 ```
 ### GKE Cluster
 
+#### Create GCE VPC Network
+Command:
+```sh
+gcloud compute networks create ${NAME}-vpc --description=vpc\ for\ gke\ cluster\ ${NAME} --subnet-mode=custom --mtu=1460 --bgp-routing-mode=regional
+```
+
+#### Create VPC Network Subnet
+Command:
+```sh
+gcloud compute networks subnets create ${REGION} --range=10.206.0.0/20 --stack-type=IPV4_ONLY --network=${NAME}-vpc --region=${REGION} --enable-private-ip-google-access
+```
+
 #### Create GKE Kubernetes Cluster
 Command:
-```
-gcloud container clusters create ${NAME} --zone=${ZONE} --machine-type=e2-standard-8 --num-nodes=1
+```sh
+gcloud container clusters create ${NAME} --zone=${REGION} --machine-type=e2-standard-8 --num-nodes=1 --network=${NAME}-vpc --subnetwork=${REGION}
 ```
 Sample output:
 > NAME: tpc-k8s-otel-o11y\
-> LOCATION: us-central1-c\
+> LOCATION: us-central1\
 > MASTER_VERSION: 1.29.4-gke.1043002\
 > MASTER_IP: 34.46.195.237\
 > MACHINE_TYPE: e2-standard-8\
