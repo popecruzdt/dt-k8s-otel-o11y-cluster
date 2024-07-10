@@ -67,10 +67,13 @@ cd dt-k8s-otel-o11y-cluster
 #### Define user variables
 *note: these can be updated with any regions you have access to*\
 https://cloud.google.com/compute/docs/regions-zones
-```
+```sh
 REGION=us-central1
 ```
+```sh
+ZONE=us-central1-c
 ```
+```sh
 NAME=<INITIALS>-k8s-otel-o11y
 ```
 ### GKE Cluster
@@ -84,17 +87,17 @@ gcloud compute networks create ${NAME}-vpc --description=vpc\ for\ gke\ cluster\
 #### Create VPC Network Subnet
 Command:
 ```sh
-gcloud compute networks subnets create ${REGION} --range=10.206.0.0/20 --stack-type=IPV4_ONLY --network=${NAME}-vpc --region=${REGION} --enable-private-ip-google-access
+gcloud compute networks subnets create ${NAME}-sub --range=10.206.0.0/20 --stack-type=IPV4_ONLY --network=${NAME}-vpc --region=${REGION} --enable-private-ip-google-access
 ```
 
 #### Create GKE Kubernetes Cluster
 Command:
 ```sh
-gcloud container clusters create ${NAME} --zone=${REGION} --machine-type=e2-standard-8 --num-nodes=1 --network=${NAME}-vpc --subnetwork=${REGION}
+gcloud container clusters create ${NAME} --zone=${ZONE} --machine-type=e2-standard-8 --num-nodes=1 --network=${NAME}-vpc --subnetwork=${NAME}-sub
 ```
 Sample output:
 > NAME: tpc-k8s-otel-o11y\
-> LOCATION: us-central1\
+> LOCATION: us-central1-c\
 > MASTER_VERSION: 1.29.4-gke.1043002\
 > MASTER_IP: 34.46.195.237\
 > MACHINE_TYPE: e2-standard-8\
