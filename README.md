@@ -107,7 +107,7 @@ Sample output:
 
 #### Verify Cluster
 Command:
-```
+```sh
 kubectl version
 ```
 Sample output:
@@ -117,7 +117,7 @@ Sample output:
 
 #### Verify Helm
 Command:
-```
+```sh
 helm version
 ```
 Sample output:
@@ -131,27 +131,29 @@ https://istio.io/latest/docs/setup/getting-started/#download
 #### Install Istio client (1.22+)
 *note: specifying version `1.22.1` to avoid future issues with this lab*
 Command:
-```
+```sh
 curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.22.1 sh -
 ```
 
 #### Move to the Istio package directory
 Command:
-```
+```sh
 cd istio-1.22.1
 ```
 Where `1.22.1` is the version that was installed\
 
 #### Add the `istioctl` client to path
 Command:
-```
+```sh
 export PATH=$PWD/bin:$PATH
 ```
 
 #### Deploy Istio operator using `istioctl`
 Command:
-```
+```sh
 cd ..
+```
+```sh
 istioctl install -f istio/istio-operator.yaml --skip-confirmation
 ```
 Sample output:
@@ -166,7 +168,7 @@ https://opentelemetry.io/docs/demo/kubernetes-deployment/
 
 #### Add OpenTelemetry Helm repository
 Command:
-```
+```sh
 helm repo add open-telemetry https://open-telemetry.github.io/opentelemetry-helm-charts
 ```
 Sample output:
@@ -174,7 +176,7 @@ Sample output:
 
 #### Create astronomy-shop namespace
 Command:
-```
+```sh
 kubectl create namespace astronomy-shop
 ```
 Sample output:
@@ -182,7 +184,7 @@ Sample output:
 
 #### Label astronomy-shop namespace for Istio
 Command:
-```
+```sh
 kubectl label namespace astronomy-shop istio-injection=enabled
 ```
 Sample output:

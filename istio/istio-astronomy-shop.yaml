@@ -32,4 +32,4 @@ spec:
         - destination:
             port:
               number: 8080
-            host: astronomy-shop-frontend
+            host: astronomy-shop-frontendproxy
