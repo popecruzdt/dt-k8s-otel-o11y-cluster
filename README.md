@@ -8,10 +8,10 @@ author: Tony Pope-Cruz
 Total Duration: 10
 
 ### What You’ll Learn Today
-In this lab we'll create a Kubernetes cluster in GCP (GKE) and deploy the OpenTelemetry Demo application, astronomy-shop.  This is a foundation/prerequisite for several other labs utilizing this infrastructure deployment.
+In this lab we'll create a Kubernetes cluster in Codespaces using Kind. We'll also deploy the OpenTelemetry Demo application, astronomy-shop.  This is a foundation/prerequisite for several other labs utilizing this infrastructure deployment.  This process is automated when starting a new Codespaces instance, no manual action required.
 
 Lab tasks:
-1. Create a Kubernetes cluster on Google GKE
+1. Create a Kubernetes cluster on Kind Kubernetes
 2. Deploy OpenTelemetry's demo application, astronomy-shop
 3. Deploy Istio Service Mesh
 
@@ -20,10 +20,10 @@ Lab tasks:
 Duration: 2
 
 #### Technologies Used
-- [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine)
-  - tested on GKE v1.29.4-gke.1043002
+- [Kind Kubernetes](https://kind.sigs.k8s.io/)
+  - tested on Kind v0.24.0
 - [OpenTelemetry Demo astronomy-shop](https://opentelemetry.io/docs/demo/)
-  - tested on release 1.10.0, helm release 0.31.0
+  - tested on release 1.10.0, helm chart release 0.31.0
 - [Istio](https://istio.io/latest/docs/)
   - tested on v1.22.1
 - [Helm](https://helm.sh/)
@@ -33,77 +33,14 @@ Duration: 2
 [Demo Architecture](https://opentelemetry.io/docs/demo/architecture/)
 
 #### Prerequisites
-- Google Cloud Account
-- Google Cloud Project
-- Google Cloud Access to Create and Manage GKE Clusters
-- Google Cloud Access to Create and Manage GCE VPC Networks
-- Google CloudShell Access
-  - [gcloud CLI](https://cloud.google.com/sdk/docs/install#linux)
-  - [kubectl](https://kubernetes.io/docs/tasks/tools/)
-  - [helm](https://helm.sh/docs/intro/install/)
-  - [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-  - [istio](https://istio.io/latest/docs/setup/getting-started/#download)
 
 <!-- -------------------------->
 ## Setup
 Duration: 8
 
-#### Clone the repo to your home directory
-Command:
-```sh
-git clone https://github.com/popecruzdt/dt-k8s-otel-o11y-cluster.git
-```
-Sample output:
-> Cloning into 'dt-k8s-otel-o11y-cluster'...\
-> ...\
-> Receiving objects: 100% (12/12), 10.61 KiB | 1.77 MiB/s, done.
+### Kind Cluster
 
-#### Move into repo base directory
-Command:
-```sh
-cd dt-k8s-otel-o11y-cluster
-```
 
-#### Define user variables
-*note: these can be updated with any regions you have access to*\
-https://cloud.google.com/compute/docs/regions-zones
-```sh
-REGION=us-central1
-```
-```sh
-ZONE=us-central1-c
-```
-```sh
-NAME=<INITIALS>-k8s-otel-o11y
-```
-### GKE Cluster
-
-#### Create GCE VPC Network
-Command:
-```sh
-gcloud compute networks create ${NAME}-vpc --description=vpc\ for\ gke\ cluster\ ${NAME} --subnet-mode=custom --mtu=1460 --bgp-routing-mode=regional
-```
-
-#### Create VPC Network Subnet
-Command:
-```sh
-gcloud compute networks subnets create ${NAME}-sub --range=10.206.0.0/20 --stack-type=IPV4_ONLY --network=${NAME}-vpc --region=${REGION} --enable-private-ip-google-access
-```
-
-#### Create GKE Kubernetes Cluster
-Command:
-```sh
-gcloud container clusters create ${NAME} --zone=${ZONE} --machine-type=e2-standard-8 --num-nodes=1 --network=${NAME}-vpc --subnetwork=${NAME}-sub
-```
-Sample output:
-> NAME: tpc-k8s-otel-o11y\
-> LOCATION: us-central1-c\
-> MASTER_VERSION: 1.29.4-gke.1043002\
-> MASTER_IP: 34.46.195.237\
-> MACHINE_TYPE: e2-standard-8\
-> NODE_VERSION: 1.29.4-gke.1043002\
-> NUM_NODES: 1\
-> STATUS: RUNNING
 
 #### Verify Cluster
 Command:
@@ -274,15 +211,11 @@ Sample output:
 > virtualservice.networking.istio.io/astronomy-shop-httproute created\
 > Access astronomy-shop at http://astronomyshop.35.223.120.37.nip.io/'
 
-<!-- ------------------------ -->
-## Demo The New Functionality
-TODO
-
 <!-- -------------------------->
 ## Wrap Up
 
 ### What You Learned Today 
-By completing this lab, you created a Kubernetes cluster on GCP (GKE) and deployed the OpenTelemetry Demo application, astronomy-shop.
+By completing this lab, you created a Kubernetes cluster on Kind and deployed the OpenTelemetry Demo application, astronomy-shop.
 - The Kubernetes cluster can run containerized workloads
 - The astronomy-shop application offers a convenient way to demo/explore cloud native technologies
 - Istio Service Mesh provides networking, security, and observability capabilities for Kubernetes
