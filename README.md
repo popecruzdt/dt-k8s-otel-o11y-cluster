@@ -40,7 +40,10 @@ Duration: 8
 
 ### Kind Cluster
 
-
+```sh
+# Install
+kind create cluster --config .devcontainer/kind-cluster.yml --wait 300s
+```
 
 #### Verify Cluster
 Command:
@@ -48,9 +51,9 @@ Command:
 kubectl version
 ```
 Sample output:
-> Client Version: v1.29.5\
-> Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3\
-> Server Version: v1.29.4-gke.1043002
+> Client Version: v1.31.0\
+> Kustomize Version: v5.4.2\
+> Server Version: v1.31.0
 
 #### Verify Helm
 Command:
@@ -58,111 +61,36 @@ Command:
 helm version
 ```
 Sample output:
-> version.BuildInfo{Version:"v3.9.3",\
-> GitCommit:"414ff28d4029ae8c8b05d62aa06c7fe3dee2bc58",\
-> GitTreeState:"clean", GoVersion:"go1.17.13"}
+> version.BuildInfo{Version:"v3.16.1",\
+> GitCommit:"5a5449dc42be07001fd5771d56429132984ab3ab",\
+> GitTreeState:"clean", GoVersion:"go1.22.7"}
 
 ### Istio Service Mesh
 https://istio.io/latest/docs/setup/getting-started/#download
 
-#### Install Istio client (1.22+)
-*note: specifying version `1.22.1` to avoid future issues with this lab*
-Command:
 ```sh
-curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.22.1 sh -
-```
-
-#### Move to the Istio package directory
-Command:
-```sh
-cd istio-1.22.1
-```
-Where `1.22.1` is the version that was installed\
-
-#### Add the `istioctl` client to path
-Command:
-```sh
-export PATH=$PWD/bin:$PATH
-```
-
-#### Deploy Istio operator using `istioctl`
-Command:
-```sh
-cd ..
-```
-```sh
+# istio setup
+export PATH=$PWD/istio-1.22.1/bin:$PATH
 istioctl install -f istio/istio-operator.yaml --skip-confirmation
 ```
-Sample output:
-> ✔ Istio core installed\
-> ✔ Istiod installed\
-> ✔ Egress gateways installed\
-> ✔ Ingress gateways installed\
-> ✔ Installation complete
+
+```sh
+# update istio ingress
+kubectl patch svc -n istio-system istio-ingressgateway --patch "$(cat deployment/patch.yaml)"
+kubectl delete pod --all -n istio-system
+```
 
 ### OpenTelemetry Demo - astronomy-shop
 https://opentelemetry.io/docs/demo/kubernetes-deployment/
 
-#### Add OpenTelemetry Helm repository
-Command:
 ```sh
-helm repo add open-telemetry https://open-telemetry.github.io/opentelemetry-helm-charts
-```
-Sample output:
-> "open-telemetry" has been added to your repositories
-
-#### Create astronomy-shop namespace
-Command:
-```sh
-kubectl create namespace astronomy-shop
-```
-Sample output:
-> namespace/astronomy-shop created
-
-#### Label astronomy-shop namespace for Istio
-Command:
-```sh
-kubectl label namespace astronomy-shop istio-injection=enabled
-```
-Sample output:
-> namespace/astronomy-shop labeled
-
-#### Customize astronomy-shop helm values
-```yaml
-default:
-  # List of environment variables applied to all components
-  env:
-    - name: OTEL_SERVICE_NAME
-      valueFrom:
-        fieldRef:
-          apiVersion: v1
-          fieldPath: "metadata.labels['app.kubernetes.io/component']"
-    - name: OTEL_COLLECTOR_NAME
-      value: '{{ include "otel-demo.name" . }}-otelcol'
-    - name: OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
-      value: cumulative
-    - name: OTEL_RESOURCE_ATTRIBUTES
-      value: 'service.name=$(OTEL_SERVICE_NAME),service.namespace=NAME_TO_REPLACE,service.version={{ .Chart.AppVersion }}'
-```
-> service.namespace=NAME_TO_REPLACE\
-> service.namespace=INITIALS-k8s-otel-o11y
-
-Command:
-```sh
+# deploy astronomy shop
 sed -i "s,NAME_TO_REPLACE,$NAME," astronomy-shop/default-values.yaml
-```
-
-#### Install astronomy-shop
-Command:
-```sh
+helm repo add open-telemetry https://open-telemetry.github.io/opentelemetry-helm-charts
+kubectl create namespace astronomy-shop
+kubectl label namespace astronomy-shop istio-injection=enabled
 helm install astronomy-shop open-telemetry/opentelemetry-demo --values astronomy-shop/default-values.yaml --namespace astronomy-shop --version "0.31.0"
 ```
-Sample output:
-> NAME: astronomy-shop\
-> LAST DEPLOYED: Fri Jun 14 20:27:54 2024\
-> NAMESPACE: astronomy-shop\
-> STATUS: deployed\
-> REVISION: 1
 
 #### Validate pods are running
 Command:
