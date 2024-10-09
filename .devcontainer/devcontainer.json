@@ -56,18 +56,6 @@
 
   // // Add recommended secrets
   "secrets": {
-    "DT_URL": {
-      "description": "eg. https://abc12345.live.dynatrace.com"
-    },
-    "DT_OPERATOR_TOKEN": {
-      "description": "Dynatrace K8s Operator Token"
-    },
-    "DT_DATAINGEST_TOKEN": {
-      "description": "Data Ingest Token"
-    },
-    "DT_LOG_INGEST_TOKEN": {
-      "description": "Dynatrace Data Ingest Token for Logs"
-    }
 
   }
 }
